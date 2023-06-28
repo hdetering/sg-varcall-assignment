@@ -3,16 +3,16 @@ title: "Variant calling assignment report"
 author: "Harald Detering (harald.detering@gmail.com)"
 date: "28.06.2023"
 output:
-  pdf_document:
-    toc: yes
-    toc_depth: '2'
-  html_notebook:
-    toc: yes
-    toc_depth: 2
   html_document:
     toc: yes
     toc_depth: '2'
     df_print: paged
+  html_notebook:
+    toc: yes
+    toc_depth: 2
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
 ---
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
