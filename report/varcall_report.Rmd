@@ -1,11 +1,18 @@
 ---
 title: "Variant calling assignment report"
 author: "Harald Detering (harald.detering@gmail.com)"
-date: 28.06.2023
+date: "28.06.2023"
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: '2'
   html_notebook:
-    toc: true
+    toc: yes
     toc_depth: 2
+  html_document:
+    toc: yes
+    toc_depth: '2'
+    df_print: paged
 ---
 
 ```{r, echo=FALSE, message=FALSE, warning=FALSE, results='hide'}
@@ -30,7 +37,7 @@ The sequence bias in the first 12 positions of the reads is consistent with the 
 
 ## Per Sequence GC content
 
-The per-sequence GC content distribution shows two peaks, one at ~37% and another one at ~48%. The first peak is consistent with the GC content of the human nuclear genome (40.9%), whereas the second peak most likely corresponds to reads originating from the mitochondrial genome which has a higher GC content (44.4%).
+The per-sequence GC content distribution shows two peaks, one at ~37% and another one at ~48%. Since the sequencing reads originate from a targeted sequencing experiment, the two peaks most likely correspond to exonic (high GC content) and intronic (low GC content) regions (for reference, see e.g. [Amit et al. 2012](https://pubmed.ncbi.nlm.nih.gov/22832277/)).
 
 ![FastQC Per Sequence GC Content](figures/fastqc_per-seq-gc-content.png)
 
@@ -77,7 +84,7 @@ sprintf('Precision: %.2f', 100 * tp / (tp + fp))
 sprintf('Specificity: %.2f', 100 * tn / (tn + fp))
 ```
 
-Let's inspect the FN and FP calls more in detail.
+Next, let us inspect the FN and FP calls more in detail.
 
 ## False Negatives (FN)
 
@@ -134,15 +141,14 @@ All of these positions seem to have decent depth (DP >= ~500). They are probably
 
 The following plot shows the running time (in seconds) for each workflow step. Where possible, the times are reported by sample (original vs. expanded sample), the common workflow steps are displayed under sample "NA".
 
-```{r}
+```{r, echo=FALSE}
 # Read benchmark output
 data_path <- "../log/"   # path to the logs
 files <- dir(data_path, pattern = "*.perf") # get file names
-#col_names = c("s","h_m_s","max_rss","max_vms","max_uss","max_pss","io_in","io_out","mean_load",NA)
 
 df_perf <- tibble(filename = files) %>%
-  mutate(sample = str_extract(filename, '((\\w+)\\.)?(\\w+)\\.perf', group = 2)) %>% # extract sample from filenames
-  mutate(step = str_extract(filename, '((\\w+)\\.)?(\\w+)\\.perf', group = 3)) %>% # extract workflow step from filenames
+  mutate(sample = str_extract(filename, '((\\w+)\\.)?(\\w+)\\.perf', group = 2)) %>% 
+  mutate(step = str_extract(filename, '((\\w+)\\.)?(\\w+)\\.perf', group = 3)) %>% 
   mutate(file_contents = map(filename, ~ read_delim(file.path(data_path, .), col_types = cols_only(
     s = col_number(),
     `h:m:s` = col_time(),
@@ -169,7 +175,7 @@ It is apparent, that the most time was used for downloading and indexing the ref
 
 From the performance metrics it is clear that the read mapping (using `bwa mem`) took the majority of the sample-related run time, followed by the variant calling itself (using `gatk HaplotypeCaller`).
 
-```{r}
+```{r, echo=FALSE}
 # colorblind-friendly color palette:
 cbPalette <- c("#999999", "#E69F00", "#56B4E9", "#009E73", "#F0E442", "#0072B2", "#D55E00", "#CC79A7")
 
