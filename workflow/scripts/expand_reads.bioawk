@@ -1,0 +1,31 @@
+#!/usr/bin/awk
+# vim: syntax=awk tabstop=2 expandtab
+# coding: utf-8
+#------------------------------------------------------------------------------
+# BioAWK script to duplicate each read in a FASTQ file.
+# Adds an "A" to read ID.
+#------------------------------------------------------------------------------
+# author   : Harald Detering
+# email    : harald.detering@gmail.com
+# modified : 2023-06-28
+#------------------------------------------------------------------------------
+
+{
+  # print original read
+  print "@"$name"\n"$seq"\n+\n"$qual;
+
+  # split read name
+  split($name,a," ");
+  split(a[1],b,":");
+
+  # print name of duplicated read
+  printf("@");
+  for (i=1; i<length(b); i++)
+    if (i==2)
+      printf("%sA:", b[i]);
+    else
+      printf("%s:", b[i]);
+  printf("%s %s\n", b[length(b)], a[2]);
+  # print remaining parts of read
+  print $seq"\n+\n"$qual;
+}

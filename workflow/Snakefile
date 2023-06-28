@@ -1,0 +1,21 @@
+# vim: syntax=python tabstop=2 expandtab
+# coding: utf-8
+#------------------------------------------------------------------------------
+# Somantic variant calling pipeline
+#------------------------------------------------------------------------------
+# author   : Harald Detering
+# email    : harald.detering@gmail.com
+# modified : 2023-06-23
+#------------------------------------------------------------------------------
+
+configfile: 'config/config.yaml'
+
+# load rules
+include: 'rules/qc.smk'
+include: 'rules/map.smk'
+include: 'rules/varcall.smk'
+
+# dummy rule to run all steps
+rule all:
+  output:
+    'results/'

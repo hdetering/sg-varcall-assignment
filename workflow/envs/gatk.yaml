@@ -1,0 +1,15 @@
+# vim: syntax=yaml tabstop=2 expandtab
+# coding: utf-8
+#------------------------------------------------------------------------------
+# Conda environment for Genome Analysis ToolKit (GATK)
+#------------------------------------------------------------------------------
+# author   : Harald Detering
+# email    : harald.detering@gmail.com
+# modified : 2023-06-27
+#------------------------------------------------------------------------------
+
+name: gatk
+channels:
+  - bioconda
+dependencies:
+  - gatk4

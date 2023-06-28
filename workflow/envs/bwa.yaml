@@ -1,0 +1,16 @@
+# vim: syntax=yaml tabstop=2 expandtab
+# coding: utf-8
+#------------------------------------------------------------------------------
+# Conda environment for read mapping using bwa.
+#------------------------------------------------------------------------------
+# author   : Harald Detering
+# email    : harald.detering@gmail.com
+# modified : 2023-06-25
+#------------------------------------------------------------------------------
+
+name: bwa
+channels:
+  - bioconda
+dependencies:
+  - bwa
+  - samtools

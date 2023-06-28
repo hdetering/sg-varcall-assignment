@@ -1,0 +1,15 @@
+# vim: syntax=yaml tabstop=2 expandtab
+# coding: utf-8
+#------------------------------------------------------------------------------
+# Conda environment for VCF analyses
+#------------------------------------------------------------------------------
+# author   : Harald Detering
+# email    : harald.detering@gmail.com
+# modified : 2023-06-27
+#------------------------------------------------------------------------------
+
+name: bedtools
+channels:
+  - bioconda
+dependencies:
+  - bedtools

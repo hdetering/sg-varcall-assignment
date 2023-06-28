@@ -1,0 +1,19 @@
+# vim: syntax=yaml tabstop=2 expandtab
+# coding: utf-8
+#------------------------------------------------------------------------------
+# Conda environment to run Snakemake rules
+#------------------------------------------------------------------------------
+# author   : Harald Detering
+# email    : harald.detering@gmail.com
+# modified : 2023-06-28
+#------------------------------------------------------------------------------
+
+name: snakemake
+channels:
+  - bioconda
+  - conda-forge
+dependencies:
+  - bedtools
+  - bioawk
+  - gsutil
+  - snakemake
